@@ -1,0 +1,31 @@
+{
+  "short_name": "IndexSim",
+  "name": "BSE NSE Index Leverage Simulator",
+  "description": "Client-side Indian stock market index simulator.",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#0d1117",
+  "theme_color": "#238636",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "./"
+}
