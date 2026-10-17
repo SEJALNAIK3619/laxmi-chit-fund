@@ -4,9 +4,9 @@
     <link rel="manifest" href="./manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>Indian Index Leverage Simulator</title>
+    <title>Laxmi Chit Fund - Index Leverage Simulator</title>
     <style>
-        :root{--bg:#0d1117;--card:#161b22;--text:#c9d1d9;--green:#238636;--gtxt:#00c873;--red:#da3633;--rtxt:#ff3b30;--accent:#58a6ff;}
+        :root{--bg:#0d1117;--card:#161b22;--text:#c9d1d9;--green:#238636;--gtxt:#00c873;--red:#da3633;--rtxt:#ff3b30;--accent:#eaac30;}
         body{font-family:sans-serif;background:var(--bg);color:var(--text);margin:0;padding:12px;box-sizing:border-box;}
         *, *:before, *:after {box-sizing:inherit;}
         .header{text-align:center;padding:10px 0;border-bottom:1px solid #30363d;position:relative;}
@@ -26,38 +26,38 @@
         .c-btn{padding:6px 12px;background:var(--red);color:white;border:none;border-radius:4px;cursor:pointer;font-weight:bold;font-size:12px;}
         .out-btn{position:absolute;right:10px;top:12px;background:#30363d;color:white;border:none;padding:5px 10px;border-radius:4px;font-size:12px;cursor:pointer;}
         #authScreen,#mainScreen{display:none;}
-        .pwa-btn{display:none;background:var(--accent);color:white;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;margin:10px auto;width:100%;}
+        .pwa-btn{display:none;background:var(--accent);color:black;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;margin:10px auto;width:100%;}
         .box-title{margin-top:0;margin-bottom:12px;font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;font-weight:bold;border-bottom:1px solid #21262d;padding-bottom:6px;}
     </style>
 </head>
 <body>
     <!-- Authentication Screen -->
     <div id="authScreen">
-        <div class="header"><h2>Trading Gate</h2></div>
+        <div class="header"><h2>Laxmi Chit Fund Gate</h2></div>
         <div class="card-box" style="max-width:400px;margin:40px auto;">
-            <h3 style="margin-top:0;text-align:center;color:var(--accent);">Account Login</h3>
-            <div class="card-box"><div class="f-grp"><label>Username</label><input type="text" id="uName"></div></div>
-            <div class="card-box"><div class="f-grp"><label>Password</label><input type="password" id="uPass"></div></div>
-            <button type="button" id="primaryAuthBtn" onclick="handleAuth()">Login</button>
+            <h3 id="authTitle" style="margin-top:0;text-align:center;color:var(--accent);">Chit Fund Login</h3>
+            <div class="card-box"><div class="f-grp"><label>Scheme Username</label><input type="text" id="uName"></div></div>
+            <div class="card-box"><div class="f-grp"><label>Secure Password</label><input type="password" id="uPass"></div></div>
+            <button type="button" id="primaryAuthBtn" onclick="handleAuth()">Login to Account</button>
             <div style="margin-top:15px;text-align:center;font-size:13px;">
-                <a href="#" id="toggleAuthLink" onclick="toggleAuthMode()" style="color:var(--accent);text-decoration:none;">Create account</a>
+                <a href="#" id="toggleAuthLink" onclick="toggleAuthMode()" style="color:var(--accent);text-decoration:none;">Open New Chit Account</a>
             </div>
         </div>
     </div>
 
     <!-- Main Dashboard Screen -->
     <div id="mainScreen">
-        <div class="header"><h2>Dashboard</h2><button class="out-btn" onclick="logout()">Logout</button></div>
-        <button id="pwaInstallBtn" class="pwa-btn">ðŸ“¥ Install App to Desktop</button>
-        <div style="text-align:center;margin-top:5px;color:#8b949e;font-size:13px;">User: <span id="userBadge" style="color:white;font-weight:bold;"></span></div>
+        <div class="header"><h2>Laxmi Chit Fund Dashboard</h2><button class="out-btn" onclick="logout()">Exit</button></div>
+        <button id="pwaInstallBtn" class="pwa-btn">ðŸ“¥ Install Laxmi Chit Fund App</button>
+        <div style="text-align:center;margin-top:5px;color:#8b949e;font-size:13px;">Member: <span id="userBadge" style="color:white;font-weight:bold;"></span></div>
         
         <div class="card-box c-center">
-            <div style="font-size:13px;color:#8b949e;margin-bottom:4px;">Available Balance</div>
+            <div style="font-size:13px;color:#8b949e;margin-bottom:4px;">Total Portfolio Worth</div>
             <div id="balView" class="amt">â‚¹10,00,000.00</div>
         </div>
         
         <div class="card-box c-center">
-            <h3 class="box-title">Live Ticker Feed</h3>
+            <h3 class="box-title">Dalal Street Live Feeds</h3>
             <div class="t-box" id="nPr" style="color:#eaac30;margin-bottom:8px;">NSE NIFTY 50: Load...</div>
             <div class="t-box" id="sPr" style="color:#58a6ff;margin-bottom:0;">BSE SENSEX: Load...</div>
         </div>
@@ -74,7 +74,7 @@
 
         <div class="card-box">
             <h3 class="box-title">3. Leverage Setup</h3>
-            <div class="f-grp"><label>Leverage Multiplier Setting</label><select id="tLev"><option value="1">1x (No Leverage)</option><option value="5">5x Leverage</option><option value="10">10x Leverage</option><option value="20">20x Leverage</option></select></div>
+            <div class="f-grp"><label>Leverage Setting (Risk Engine)</label><select id="tLev"><option value="1">1x Standard</option><option value="5">5x Leverage</option><option value="10">10x Leverage</option><option value="20">20x Max Leverage</option></select></div>
         </div>
 
         <div class="card-box">
@@ -93,11 +93,11 @@
         </div>
 
         <div class="card-box">
-            <button type="button" onclick="buy()">Execute Open Order</button>
+            <button type="button" onclick="buy()">Execute Chit Fund Order</button>
         </div>
 
         <div class="card-box">
-            <h3 class="box-title">Active Position Ledger</h3>
+            <h3 class="box-title">Active Chit Fund Positions Ledger</h3>
             <div class="t-cont">
                 <table>
                     <thead>
@@ -113,7 +113,7 @@
                         </tr>
                     </thead>
                     <tbody id="pBody">
-                        <tr><td colspan="8" style="text-align:center;color:#8b949e;padding:20px;">No active index positions</td></tr>
+                        <tr><td colspan="8" style="text-align:center;color:#8b949e;padding:20px;">No open positions in ledger</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -129,7 +129,7 @@
             if(authMode==="LOGIN"){
                 authMode="SIGNUP"; t.innerText="Create Account"; b.innerText="Register Account"; l.innerText="Have account? Login";
             }else{
-                authMode="LOGIN"; t.innerText="Account Login"; b.innerText="Login"; l.innerText="Create account";
+                authMode="LOGIN"; t.innerText="Chit Fund Login"; b.innerText="Login"; l.innerText="Open New Chit Account";
             }
         }
         function handleAuth(){
@@ -140,9 +140,9 @@
                 if(users[u]){alert("Username taken");return;}
                 users[u]=p; localStorage.setItem('idx_users',JSON.stringify(users));
                 localStorage.setItem('idxb_'+u,'1000000.00'); localStorage.setItem('idxp_'+u,'[]');
-                authMode="LOGIN"; toggleAuthMode(); alert("Registered! Please login.");
+                authMode="LOGIN"; toggleAuthMode(); alert("Chit account activated! You can login now.");
             }else{
-                if(!users[u]||users[u]!==p){alert("Wrong password");return;}
+                if(!users[u]||users[u]!==p){alert("Invalid Chit Credentials");return;}
                 currentUser=u; localStorage.setItem('idx_session',u);
                 document.getElementById('uName').value=""; document.getElementById('uPass').value="";
                 loadUserDashboard();
@@ -159,7 +159,7 @@
             document.getElementById('mainScreen').style.display='none'; document.getElementById('authScreen').style.display='block';
             authMode="LOGIN";
             var t=document.getElementById('authTitle'); var b=document.getElementById('primaryAuthBtn');
-            if(t) t.innerText="Account Login"; if(b) b.innerText="Login";
+            if(t) t.innerText="Chit Fund Login"; if(b) b.innerText="Login";
         }
         function upBal(){
             var v=document.getElementById('balView');
@@ -170,21 +170,21 @@
             var sym=document.getElementById('tSym').value; var side=document.getElementById('tSide').value;
             var lev=document.getElementById('tLev').value; var mgn=parseFloat(document.getElementById('tMgn').value);
             var tpV=parseFloat(document.getElementById('tTP').value)||0; var slV=parseFloat(document.getElementById('tSL').value)||0;
-            if(isNaN(mgn)||mgn<=0||mgn>bal){alert("Invalid Margin/No Funds");return;}
+            if(isNaN(mgn)||mgn<=0||mgn>bal){alert("Insufficient Chit Funds!");return;}
             bal-=mgn; upBal();
             var nt={id:Date.now(),s:sym,d:side,v:parseInt(lev),m:mgn,e:px[sym].i,tp:tpV,sl:slV};
             var list=JSON.parse(localStorage.getItem('idxp_'+currentUser))||[]; list.push(nt);
-            localStorage.setItem('idxp_'+currentUser,JSON.stringify(list)); draw(); alert('Index Position Opened');
+            localStorage.setItem('idxp_'+currentUser,JSON.stringify(list)); draw(); alert('Position Added to Ledger');
         }
         function draw(){
             try{
                 var list=JSON.parse(localStorage.getItem('idxp_'+currentUser))||[]; var b=document.getElementById('pBody'); if(!b) return;
-                if(list.length===0){ b.innerHTML='<tr><td colspan="8" style="text-align:center;color:#8b949e;padding:20px;">No active index positions</td></tr>'; return; }
+                if(list.length===0){ b.innerHTML='<tr><td colspan="8" style="text-align:center;color:#8b949e;padding:20px;">No active chit fund trades</td></tr>'; return; }
                 var rows='';
                 list.forEach(function(t){
                     var cls=t.d==='LONG'?'var(--gtxt)':'var(--rtxt)'; var eS=t.e.toLocaleString('en-IN',{maximumFractionDigits:2});
                     var tpS=t.tp>0?'TP: '+t.tp.toLocaleString('en-IN'):'TP: None'; var slS=t.sl>0?'SL: '+t.sl.toLocaleString('en-IN'):'SL: None';
-                    rows+='<tr><td>'+t.s+'</td><td style="font-weight:bold;color:'+cls+';">'+t.d+'</td><td>â‚¹'+t.m.toLocaleString('en-IN')+'</td><td>'+t.v+'x</td><td>'+eS+'</td><td style="font-size:11px;color:#8b949e;"><div>'+tpS+'</div><div>'+slS+'</div></td><td class="r-align" id="pnl-'+t.id+'"><div class="pnl-v">â‚¹0.00</div><div class="pnl-p">(0.00%)</div></td><td class="r-align"><button class="c-btn" onclick="cut('+t.id+ ',false)">Close</button></td></tr>';
+                    rows+='<tr><td>'+t.s+'</td><td style="font-weight:bold;color:'+cls+';">'+t.d+'</td><td>â‚¹'+t.m.toLocaleString('en-IN')+'</td><td>'+t.v+'x</td><td>'+eS+'</td><td style="font-size:11px;color:#8b949e;"><div>'+tpS+'</div><div>'+slS+'</div></td><td class="r-align" id="pnl-'+t.id+'"><div class="pnl-v">â‚¹0.00</div><div class="pnl-p">(0.00%)</div></td><td class="r-align"><button class="c-btn" onclick="cut('+t.id+ ',false)">Settle</button></td></tr>';
                 });
                 b.innerHTML=rows; upPnL();
             }catch(err){console.error(err);}
@@ -227,7 +227,7 @@
                 if(idx!==-1){
                     var t=list[idx]; var p=px[t.s].i; var df=(p-t.e)/t.e; if(t.d==='SHORT'){df=-df;}
                     bal+=(t.m+(t.m*(df*t.v))); upBal(); list.splice(idx,1);
-                    localStorage.setItem('idxp_'+currentUser,JSON.stringify(list)); draw(); if(auto){alert('Order Target Triggered');}
+                    localStorage.setItem('idxp_'+currentUser,JSON.stringify(list)); draw(); if(auto){alert('Chit Target Hit - Settled!');}
                 }
             }catch(e){}
         }
@@ -240,4 +240,4 @@
         tick(); setInterval(tick,1000);
     </script>
 </body>
-</html>
+    </html>
