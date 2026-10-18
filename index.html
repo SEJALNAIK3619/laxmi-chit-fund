@@ -73,19 +73,19 @@
         <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 10px;">Enter member credentials to access trading desk</p>
         <input type="text" id="usernameInput" class="input-field" placeholder="Username (e.g., Sejal)">
         <input type="password" id="passwordInput" class="input-field" placeholder="Password">
-        <button class="primary-btn" onclick="handleLogin()">Login to Dashboard</button>
+        <button type="button" class="primary-btn" onclick="handleLogin()">Login to Dashboard</button>
     </div>
 
     <!-- SCREEN 2: CORE DASHBOARD SYSTEM -->
     <div id="dashboardScreen">
         <div class="header">
             <h1 class="app-title">Laxmi Chit Fund Dashboard</h1>
-            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+            <button type="button" class="logout-btn" onclick="handleLogout()">Logout</button>
         </div>
 
         <div class="member-badge">Member: <span id="displayMemberName">Sejal</span></div>
 
-        <button id="installBtn" class="install-btn">&#128242; Install Laxmi Chit Fund App</button>
+        <button id="installBtn" type="button" class="install-btn">&#128242; Install Laxmi Chit Fund App</button>
 
         <div class="card">
             <div class="card-title">Total Portfolio Worth</div>
@@ -121,7 +121,7 @@
             <div class="form-label" style="margin-top: 5px;">3. Trading Trade Value</div>
             <input type="number" id="tradeQuantity" class="input-field" value="50" min="1" placeholder="Quantity/Lots">
             
-            <button class="primary-btn" style="margin-top: 5px;" onclick="executeOrder()">Execute Simulated Order</button>
+            <button type="button" class="primary-btn" style="margin-top: 5px;" onclick="executeOrder()">Execute Simulated Order</button>
         </div>
 
         <!-- POSITIONS DISPLAY BOARD TABLE -->
@@ -140,8 +140,6 @@
     let niftyBase = 24219.37;
     let sensexBase = 79623.36;
     let priceInterval;
-    
-    // Positions storage array
     let activePositions = [];
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -193,7 +191,6 @@
         return "&#8377;" + num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    // ORDER EXECUTION LOGIC ENGINE
     function executeOrder() {
         const asset = document.getElementById('assetSelect').value;
         const direction = document.getElementById('directionSelect').value;
@@ -223,7 +220,7 @@
     function closePosition(id) {
         activePositions = activePositions.filter(pos => {
             if (pos.id === id) {
-                currentCash += pos.pnl; // Liquidate asset pnl into permanent cash account
+                currentCash += pos.pnl;
                 return false;
             }
             return true;
@@ -231,12 +228,11 @@
         renderPositions();
     }
 
-    // ENGINE FOR RENDERING REALTIME POSITIONS
     function renderPositions() {
         const container = document.getElementById('positionsListContainer');
         if (activePositions.length === 0) {
             container.className = "empty-text";
-            container.style.textAlignment = "center";
+            container.style.textAlign = "center";
             container.innerHTML = "No open positions active. Form an order layout block above to deploy leverage!";
             return;
         }
@@ -266,7 +262,7 @@
                     <span>Unrealized P&L:</span>
                     <span class="${pnlClass}">${pnlSign}${pos.pnl.toFixed(2)}</span>
                 </div>
-                <button class="logout-btn" style="margin-top:5px; padding: 4px;" onclick="closePosition(${pos.id})">Square Off / Close</button>
+                <button type="button" class="logout-btn" style="margin-top:5px; padding: 4px; width: 100%; text-align: center;" onclick="closePosition(${pos.id})">Square Off / Close</button>
             `;
             container.appendChild(card);
         });
@@ -282,33 +278,30 @@
         document.getElementById('niftyPrice').innerText = niftyBase.toFixed(2) + " pts";
         document.getElementById('sensexPrice').innerText = sensexBase.toFixed(2) + " pts";
         
-        // Loop through and compute open trade floating P&L variations
         let totalUnrealizedPnL = 0;
         
         activePositions.forEach(pos => {
             if (pos.asset === 'NIFTY') {
                 pos.currentPrice = niftyBase;
                 let priceDiff = pos.currentPrice - pos.entryPrice;
-                pos.pnl = (pos.direction === 'LONG' ? priceDiff : -priceDiff) * pos.qty * 25; // 25x multiplier weight lot scale
+                pos.pnl = (pos.direction === 'LONG' ? priceDiff : -priceDiff) * pos.qty * 25;
             } else {
                 pos.currentPrice = sensexBase;
                 let priceDiff = pos.currentPrice - pos.entryPrice;
-                pos.pnl = (pos.direction === 'LONG' ? priceDiff : -priceDiff) * pos.qty * 15; // 15x multiplier weight lot scale
+                pos.pnl = (pos.direction === 'LONG' ? priceDiff : -priceDiff) * pos.qty * 15;
             }
             totalUnrealizedPnL += pos.pnl;
         });
 
-        // Dynamic overall evaluation
         let totalNetWorth = currentCash + totalUnrealizedPnL;
         document.getElementById('portfolioDisplay').innerHTML = formatCurrency(totalNetWorth);
         
-        // Refresh positions grid visualization mapping layout states
         if (activePositions.length > 0) {
             renderPositions();
         }
     }
 
-    // Progressive Web App Installer Script Handler
+    // PWA Installer Trigger Hooks
     let deferredPrompt;
     const installBtn = document.getElementById('installBtn');
 
@@ -332,10 +325,10 @@
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Service Worker Running Safely.'))
+                .then(reg => console.log('Service Worker Active.'))
                 .catch(err => console.error(err));
         });
     }
 </script>
 </body>
-                    </html>
+            </html>
