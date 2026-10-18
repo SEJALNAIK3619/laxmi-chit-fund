@@ -1,5 +1,6 @@
-const CACHE_NAME = 'nse-bse-sim-v1';
-const assets = ["./", "./index.html", "./manifest.json", "./icon.png"];
+const CACHE_NAME = 'laxmi-chit-fund-v1';
+// Temporarily removed "./icon.png" to pass Chrome's installation checklist layout
+const assets = ["./", "./index.html", "./manifest.json"];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -12,7 +13,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => Promise.all(
       keys.map((k) => { if(k !== CACHE_NAME) return caches.delete(k); })
-    )).then(() => self.skipWaiting())
+    )).then(() => self.clients.claim())
   );
 });
 
