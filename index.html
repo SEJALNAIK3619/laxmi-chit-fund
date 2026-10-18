@@ -1,243 +1,148 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laxmi Chit Fund Dashboard</title>
     <link rel="manifest" href="./manifest.json">
-        <title>Laxmi Chit Fund - Index Leverage Simulator</title>
     <style>
-        :root{--bg:#0d1117;--card:#161b22;--text:#c9d1d9;--green:#238636;--gtxt:#00c873;--red:#da3633;--rtxt:#ff3b30;--accent:#eaac30;}
-        body{font-family:sans-serif;background:var(--bg);color:var(--text);margin:0;padding:12px;box-sizing:border-box;}
-        *, *:before, *:after {box-sizing:inherit;}
-        .header{text-align:center;padding:10px 0;border-bottom:1px solid #30363d;position:relative;}
-        .card-box{background:var(--card);border:1px solid #30363d;border-radius:8px;padding:16px;margin:12px 0;text-align:left;}
-        .c-center{text-align:center;}
-        .amt{font-size:24px;font-weight:bold;color:var(--accent);word-break:break-all;}
-        .t-box{background:#21262d;padding:12px;border-radius:6px;text-align:center;margin-bottom:10px;border-left:4px solid var(--accent);font-family:monospace;font-size:13px;}
-        .f-grp{margin-bottom:4px;text-align:left;}
-        label{display:block;margin-bottom:6px;font-size:13px;color:#8b949e;font-weight:600;}
-        select,input{width:100%;padding:10px;background:#0d1117;border:1px solid #30363d;color:white;border-radius:6px;font-size:14px;height:40px;}
-        button{width:100%;padding:12px;background:var(--green);color:white;border:none;border-radius:6px;font-weight:bold;cursor:pointer;font-size:15px;}
-        .t-cont{overflow-x:auto;width:100%;margin-top:5px;-webkit-overflow-scrolling:touch;}
-        table{width:100%;border-collapse:collapse;min-width:600px;}
-        th{color:#8b949e;border-bottom:1px solid #30363d;padding:8px 6px;font-size:13px;white-space:nowrap;}
-        td{padding:10px 6px;border-bottom:1px solid #21262d;font-size:13px;white-space:nowrap;}
-        .r-align{text-align:right;}
-        .c-btn{padding:6px 12px;background:var(--red);color:white;border:none;border-radius:4px;cursor:pointer;font-weight:bold;font-size:12px;}
-        .out-btn{position:absolute;right:10px;top:12px;background:#30363d;color:white;border:none;padding:5px 10px;border-radius:4px;font-size:12px;cursor:pointer;}
-        #authScreen,#mainScreen{display:none;}
-        .pwa-btn{display:none;background:var(--accent);color:black;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;margin:10px auto;width:100%;}
-        .box-title{margin-top:0;margin-bottom:12px;font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;font-weight:bold;border-bottom:1px solid #21262d;padding-bottom:6px;}
+        :root {
+            --bg-primary: #12141c;
+            --bg-surface: #1a1d29;
+            --accent-gold: #ffb703;
+            --accent-emerald: #06d6a0;
+            --text-main: #ffffff;
+            --text-muted: #8b949e;
+            --border-color: #21262d;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg-primary); color: var(--text-main); padding: 15px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 15px; }
+        .header { text-align: center; margin-bottom: 5px; }
+        .exit-btn { background: #21262d; color: var(--text-main); border: 1px solid var(--border-color); padding: 6px 16px; border-radius: 4px; font-size: 14px; cursor: pointer; margin-bottom: 8px; }
+        .app-title { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
+        .member-badge { text-align: center; color: var(--text-muted); font-size: 14px; }
+        .member-badge span { color: var(--text-main); font-weight: 600; }
+        .install-btn { background: var(--accent-gold); color: #000; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 15px; cursor: pointer; display: none; text-align: center; }
+        .card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .card-title { color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .balance-value { font-size: 28px; font-weight: 700; color: var(--accent-gold); }
+        .feed-section-title { color: var(--accent-gold); font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase; text-align: center; }
+        .feed-row { display: flex; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-left: 4px solid var(--accent-gold); padding: 12px 15px; border-radius: 6px; margin-bottom: 10px; justify-content: space-between; font-size: 14px; }
+        .feed-name { color: var(--text-muted); }
+        .feed-price { font-weight: 600; color: #a3aed0; }
+        .form-group { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 8px; }
+        .form-label { color: var(--accent-gold); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 2px; }
+        select { background: #12141c; color: var(--text-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px; font-size: 14px; width: 100%; outline: none; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://w3.org' width='24' height='24' fill='white'><path d='M7 10l5 5 5-5z'/></svg>"); background-repeat: no-repeat; background-position: right 10px center; }
     </style>
 </head>
 <body>
-    <!-- Authentication Screen -->
-    <div id="authScreen">
-        <div class="header"><h2>Laxmi Chit Fund Gate</h2></div>
-        <div class="card-box" style="max-width:400px;margin:40px auto;">
-            <h3 id="authTitle" style="margin-top:0;text-align:center;color:var(--accent);">Chit Fund Login</h3>
-            <div class="card-box"><div class="f-grp"><label>Scheme Username</label><input type="text" id="uName"></div></div>
-            <div class="card-box"><div class="f-grp"><label>Secure Password</label><input type="password" id="uPass"></div></div>
-            <button type="button" id="primaryAuthBtn" onclick="handleAuth()">Login to Account</button>
-            <div style="margin-top:15px;text-align:center;font-size:13px;">
-                <a href="#" id="toggleAuthLink" onclick="toggleAuthMode()" style="color:var(--accent);text-decoration:none;">Open New Chit Account</a>
-            </div>
+
+<div class="container">
+    <div style="text-align: center;">
+        <button class="exit-btn" onclick="window.close()">Exit</button>
+        <h1 class="app-title">Laxmi Chit Fund Dashboard</h1>
+    </div>
+
+    <div class="member-badge">Member: <span>Sejal</span></div>
+
+    <!-- Restored Safe HTML Entity Elements -->
+    <button id="installBtn" class="install-btn">&#128242; Install Laxmi Chit Fund App</button>
+
+    <div class="card">
+        <div class="card-title">Total Portfolio Worth</div>
+        <div class="balance-value" id="portfolioDisplay">&#8377;19,50,000.00</div>
+    </div>
+
+    <div class="card" style="text-align: left; padding: 15px;">
+        <div class="feed-section-title">Dalal Street Live Feeds</div>
+        <div class="feed-row">
+            <span class="feed-name">NSE NIFTY 50:</span>
+            <span class="feed-price" id="niftyPrice">24,210.58 pts</span>
+        </div>
+        <div class="feed-row">
+            <span class="feed-name">BSE SENSEX:</span>
+            <span class="feed-price" id="sensexPrice">79,660.59 pts</span>
         </div>
     </div>
 
-    <!-- Main Dashboard Screen -->
-    <div id="mainScreen">
-        <div class="header"><h2>Laxmi Chit Fund Dashboard</h2><button class="out-btn" onclick="logout()">Exit</button></div>
-        <button id="pwaInstallBtn" class="pwa-btn">ðŸ“¥ Install Laxmi Chit Fund App</button>
-        <div style="text-align:center;margin-top:5px;color:#8b949e;font-size:13px;">Member: <span id="userBadge" style="color:white;font-weight:bold;"></span></div>
-        
-        <div class="card-box c-center">
-            <div style="font-size:13px;color:#8b949e;margin-bottom:4px;">Total Portfolio Worth</div>
-            <div id="balView" class="amt">â‚¹10,00,000.00</div>
-        </div>
-        
-        <div class="card-box c-center">
-            <h3 class="box-title">Dalal Street Live Feeds</h3>
-            <div class="t-box" id="nPr" style="color:#eaac30;margin-bottom:8px;">NSE NIFTY 50: Load...</div>
-            <div class="t-box" id="sPr" style="color:#58a6ff;margin-bottom:0;">BSE SENSEX: Load...</div>
-        </div>
-                 
-        <div class="card-box">
-            <h3 class="box-title">1. Market Asset</h3>
-            <div class="f-grp"><label>Asset Index Target</label><select id="tSym"><option value="NIFTY50">NSE NIFTY 50</option><option value="SENSEX">BSE SENSEX</option></select></div>
-        </div>
-
-        <div class="card-box">
-            <h3 class="box-title">2. Order Direction</h3>
-            <div class="f-grp"><label>Position Side Direction</label><select id="tSide"><option value="LONG">LONG (Bullish)</option><option value="SHORT">SHORT (Bearish)</option></select></div>
-        </div>
-
-        <div class="card-box">
-            <h3 class="box-title">3. Leverage Setup</h3>
-            <div class="f-grp"><label>Leverage Setting (Risk Engine)</label><select id="tLev"><option value="1">1x Standard</option><option value="5">5x Leverage</option><option value="10">10x Leverage</option><option value="20">20x Max Leverage</option></select></div>
-        </div>
-
-        <div class="card-box">
-            <h3 class="box-title">4. Capital Margin Allocation</h3>
-            <div class="f-grp"><label>Margin Allocation (INR)</label><input type="number" id="tMgn" value="10000"></div>
-        </div>
-
-        <div class="card-box">
-            <h3 class="box-title">5. Profit Target</h3>
-            <div class="f-grp"><label>Take Profit Trigger Value (Index Points)</label><input type="number" id="tTP" value="0"></div>
-        </div>
-
-        <div class="card-box">
-            <h3 class="box-title">6. Risk Boundary</h3>
-            <div class="f-grp"><label>Stop Loss Trigger Value (Index Points)</label><input type="number" id="tSL" value="0"></div>
-        </div>
-
-        <div class="card-box">
-            <button type="button" onclick="buy()">Execute Chit Fund Order</button>
-        </div>
-
-        <div class="card-box">
-            <h3 class="box-title">Active Chit Fund Positions Ledger</h3>
-            <div class="t-cont">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="text-align:left;">Index</th>
-                            <th style="text-align:left;">Side</th>
-                            <th style="text-align:left;">Margin</th>
-                            <th style="text-align:left;">Lev</th>
-                            <th style="text-align:left;">Entry</th>
-                            <th style="text-align:left;">TP/SL</th>
-                            <th class="r-align">PnL (INR)</th>
-                            <th class="r-align">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="pBody">
-                        <tr><td colspan="8" style="text-align:center;color:#8b949e;padding:20px;">No open positions in ledger</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="form-group">
+        <div class="form-label">1. Market Asset</div>
+        <div class="form-subtitle">Asset Index Target</div>
+        <select id="assetSelect">
+            <option value="NIFTY">NSE NIFTY 50</option>
+            <option value="SENSEX" selected>BSE SENSEX</option>
+        </select>
     </div>
-    <script>
-        var px={NIFTY50:{i:24210.50},SENSEX:{i:79650.25}};
-        var bal=1000000.00; var currentUser=""; var authMode="LOGIN"; var deferredPrompt;
 
-        function toggleAuthMode(){
-            var t=document.getElementById('authTitle'); var b=document.getElementById('primaryAuthBtn'); var l=document.getElementById('toggleAuthLink');
-            if(!t || !b || !l) return;
-            if(authMode==="LOGIN"){
-                authMode="SIGNUP"; t.innerText="Create Account"; b.innerText="Register Account"; l.innerText="Have account? Login";
-            }else{
-                authMode="LOGIN"; t.innerText="Chit Fund Login"; b.innerText="Login"; l.innerText="Open New Chit Account";
+    <div class="form-group">
+        <div class="form-label">2. Order Direction</div>
+        <div class="form-subtitle">Position Side Direction</div>
+        <select id="directionSelect">
+            <option value="LONG">LONG (Bullish)</option>
+            <option value="SHORT">SHORT (Bearish)</option>
+        </select>
+    </div>
+</div>
+
+<script>
+    // Safe standard dynamic simulation script engine
+    let portfolioValue = 1950000.00;
+    let niftyBase = 24210.58;
+    let sensexBase = 79660.59;
+
+    function formatCurrency(num) {
+        // Formats properly to standard Indian visual comma spacing using safe Rupee character rendering code
+        return "&#8377;" + num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function updateSimulatedPrices() {
+        let niftyChange = (Math.random() - 0.5) * 15;
+        let sensexChange = (Math.random() - 0.5) * 45;
+        
+        niftyBase += niftyChange;
+        sensexBase += sensexChange;
+        
+        document.getElementById('niftyPrice').innerText = niftyBase.toFixed(2) + " pts";
+        document.getElementById('sensexPrice').innerText = sensexBase.toFixed(2) + " pts";
+        
+        // Simulates balance adjustments slightly based on market movements
+        portfolioValue += niftyChange * 12.5; 
+        document.getElementById('portfolioDisplay').innerHTML = formatCurrency(portfolioValue);
+    }
+
+    setInterval(updateSimulatedPrices, 3000);
+
+    // Progressive Web App Installer Script Handler
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.style.display = 'block';
+    });
+
+    installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                installBtn.style.display = 'none';
             }
+            deferredPrompt = null;
         }
-        function handleAuth(){
-            var u=document.getElementById('uName').value.trim(); var p=document.getElementById('uPass').value.trim();
-            if(!u||!p){alert("Enter details");return;}
-            var users=JSON.parse(localStorage.getItem('idx_users'))||{};
-            if(authMode==="SIGNUP"){
-                if(users[u]){alert("Username taken");return;}
-                users[u]=p; localStorage.setItem('idx_users',JSON.stringify(users));
-                localStorage.setItem('idxb_'+u,'1000000.00'); localStorage.setItem('idxp_'+u,'[]');
-                authMode="LOGIN"; toggleAuthMode(); alert("Chit account activated! You can login now.");
-            }else{
-                if(!users[u]||users[u]!==p){alert("Invalid Chit Credentials");return;}
-                currentUser=u; localStorage.setItem('idx_session',u);
-                document.getElementById('uName').value=""; document.getElementById('uPass').value="";
-                loadUserDashboard();
-            }
-        }
-        function loadUserDashboard(){
-            document.getElementById('authScreen').style.display='none'; document.getElementById('mainScreen').style.display='block';
-            document.getElementById('userBadge').innerText=currentUser;
-            var sb=localStorage.getItem('idxb_'+currentUser); bal=sb!==null?parseFloat(sb):1000000.00;
-            upBal(); draw();
-        }
-        function logout(){
-            currentUser=""; localStorage.removeItem('idx_session');
-            document.getElementById('mainScreen').style.display='none'; document.getElementById('authScreen').style.display='block';
-            authMode="LOGIN";
-            var t=document.getElementById('authTitle'); var b=document.getElementById('primaryAuthBtn');
-            if(t) t.innerText="Chit Fund Login"; if(b) b.innerText="Login";
-        }
-        function upBal(){
-            var v=document.getElementById('balView');
-            if(v){v.innerText='â‚¹'+bal.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
-            if(currentUser){localStorage.setItem('idxb_'+currentUser,bal.toString());}
-        }
-        function buy(){
-            var sym=document.getElementById('tSym').value; var side=document.getElementById('tSide').value;
-            var lev=document.getElementById('tLev').value; var mgn=parseFloat(document.getElementById('tMgn').value);
-            var tpV=parseFloat(document.getElementById('tTP').value)||0; var slV=parseFloat(document.getElementById('tSL').value)||0;
-            if(isNaN(mgn)||mgn<=0||mgn>bal){alert("Insufficient Chit Funds!");return;}
-            bal-=mgn; upBal();
-            var nt={id:Date.now(),s:sym,d:side,v:parseInt(lev),m:mgn,e:px[sym].i,tp:tpV,sl:slV};
-            var list=JSON.parse(localStorage.getItem('idxp_'+currentUser))||[]; list.push(nt);
-            localStorage.setItem('idxp_'+currentUser,JSON.stringify(list)); draw(); alert('Position Added to Ledger');
-        }
-        function draw(){
-            try{
-                var list=JSON.parse(localStorage.getItem('idxp_'+currentUser))||[]; var b=document.getElementById('pBody'); if(!b) return;
-                if(list.length===0){ b.innerHTML='<tr><td colspan="8" style="text-align:center;color:#8b949e;padding:20px;">No active chit fund trades</td></tr>'; return; }
-                var rows='';
-                list.forEach(function(t){
-                    var cls=t.d==='LONG'?'var(--gtxt)':'var(--rtxt)'; var eS=t.e.toLocaleString('en-IN',{maximumFractionDigits:2});
-                    var tpS=t.tp>0?'TP: '+t.tp.toLocaleString('en-IN'):'TP: None'; var slS=t.sl>0?'SL: '+t.sl.toLocaleString('en-IN'):'SL: None';
-                    rows+='<tr><td>'+t.s+'</td><td style="font-weight:bold;color:'+cls+';">'+t.d+'</td><td>â‚¹'+t.m.toLocaleString('en-IN')+'</td><td>'+t.v+'x</td><td>'+eS+'</td><td style="font-size:11px;color:#8b949e;"><div>'+tpS+'</div><div>'+slS+'</div></td><td class="r-align" id="pnl-'+t.id+'"><div class="pnl-v">â‚¹0.00</div><div class="pnl-p">(0.00%)</div></td><td class="r-align"><button class="c-btn" onclick="cut('+t.id+ ',false)">Settle</button></td></tr>';
-                });
-                b.innerHTML=rows; upPnL();
-            }catch(err){console.error(err);}
-        }
-        function tick(){
-            try{
-                px.NIFTY50.i*=(1+(Math.random()-0.5)*0.0004);
-                px.SENSEX.i*=(1+(Math.random()-0.5)*0.0004);
-                var nL=document.getElementById('nPr'); if(nL){nL.innerText='NSE NIFTY 50: '+px.NIFTY50.i.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})+' pts';}
-                var sL=document.getElementById('sPr'); if(sL){sL.innerText='BSE SENSEX: '+px.SENSEX.i.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})+' pts';}
-                if(currentUser){chk();upPnL();}
-            }catch(e){}
-        }
-        function chk(){
-            try{
-                var list=JSON.parse(localStorage.getItem('idxp_'+currentUser))||[]; var hits=[];
-                list.forEach(function(t){
-                    var p=px[t.s].i; var tp=t.tp>0; var sl=t.sl>0; var l=t.d==='LONG'; var s=t.d==='SHORT';
-                    if((tp&&((l&&p>=t.tp)||(s&&p<=t.tp))) || (sl&&((l&&p<=t.sl)||(s&&p>=t.sl)))){ hits.push(t.id); }
-                });
-                hits.forEach(function(id){cut(id,true);});
-            }catch(e){}
-        }
-        function upPnL(){
-            try{
-                var list=JSON.parse(localStorage.getItem('idxp_'+currentUser))||[];
-                list.forEach(function(t){
-                    var c=document.getElementById('pnl-'+t.id); if(!c)return;
-                    var vD=c.querySelector('.pnl-v'); var pD=c.querySelector('.pnl-p'); var p=px[t.s].i;
-                    var df=(p-t.e)/t.e; if(t.d==='SHORT'){df=-df;} var pct=df*t.v*100; var amt=t.m*(pct/100);
-                    c.style.color=amt>=0?"var(--gtxt)":"var(--rtxt)";
-                    if(vD)vD.innerText=(amt>=0?"+":"")+'â‚¹'+amt.toFixed(2); if(pD)pD.innerText='('+(amt>=0?"+":"")+pct.toFixed(2)+'%)';
-                });
-            }catch(e){}
-        }
-        function cut(id,auto){
-            try{
-                var list=JSON.parse(localStorage.getItem('idxp_'+currentUser))||[];
-                var idx=list.findIndex(function(t){return t.id===id;});
-                if(idx!==-1){
-                    var t=list[idx]; var p=px[t.s].i; var df=(p-t.e)/t.e; if(t.d==='SHORT'){df=-df;}
-                    bal+=(t.m+(t.m*(df*t.v))); upBal(); list.splice(idx,1);
-                    localStorage.setItem('idxp_'+currentUser,JSON.stringify(list)); draw(); if(auto){alert('Chit Target Hit - Settled!');}
-                }
-            }catch(e){}
-        }
-        var installBtn = document.getElementById('pwaInstallBtn');
-        window.addEventListener('beforeinstallprompt', function(e) { e.preventDefault(); deferredPrompt = e; if (installBtn) installBtn.style.display = 'block'; });
-        if (installBtn) { installBtn.addEventListener('click', function() { if (!deferredPrompt) return; deferredPrompt.prompt(); deferredPrompt.userChoice.then(function() { deferredPrompt = null; installBtn.style.display = 'none'; }); }); }
-        if ('serviceWorker' in navigator) { window.addEventListener('load', function() { navigator.serviceWorker.register('./sw.js').catch(function(){}); }); }
-        var session=localStorage.getItem('idx_session');
-        if(session){ currentUser=session; loadUserDashboard(); }else{ document.getElementById('authScreen').style.display='block'; }
-        tick(); setInterval(tick,1000);
-    </script>
+    });
+
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('Service Worker running safely.', reg.scope))
+                .catch(err => console.error('Service worker initialization failure:', err));
+        });
+    }
+</script>
 </body>
-    </html>
+</html>
