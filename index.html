@@ -11,6 +11,7 @@
             --bg-surface: #1a1d29;
             --accent-gold: #ffb703;
             --accent-emerald: #06d6a0;
+            --accent-red: #ff4d4d;
             --text-main: #ffffff;
             --text-muted: #8b949e;
             --border-color: #21262d;
@@ -20,7 +21,7 @@
         .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 15px; }
         
         /* Auth Screen Styling */
-        #authScreen { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; width: 100%; max-width: 400px; }
+        #authScreen { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; width: 100%; }
         .auth-title { text-align: center; color: var(--accent-gold); font-size: 26px; font-weight: 800; letter-spacing: 1px; }
         .input-field { background: #12141c; color: var(--text-main); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px; font-size: 15px; width: 100%; outline: none; }
         .input-field:focus { border-color: var(--accent-gold); }
@@ -29,22 +30,37 @@
         /* Dashboard Screen Styling */
         #dashboardScreen { display: none; flex-direction: column; gap: 15px; width: 100%; }
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .logout-btn { background: #21262d; color: #ff4d4d; border: 1px solid #ff4d4d; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
+        .logout-btn { background: #21262d; color: var(--accent-red); border: 1px solid var(--accent-red); padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
         .app-title { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
         .member-badge { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: -5px; }
         .member-badge span { color: var(--text-main); font-weight: 600; }
         .install-btn { background: var(--accent-gold); color: #000; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 15px; cursor: pointer; display: none; text-align: center; }
+        
         .card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .card-title { color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
         .balance-value { font-size: 28px; font-weight: 700; color: var(--accent-gold); }
+        
         .feed-section-title { color: var(--accent-gold); font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase; text-align: center; }
         .feed-row { display: flex; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-left: 4px solid var(--accent-gold); padding: 12px 15px; border-radius: 6px; margin-bottom: 10px; justify-content: space-between; font-size: 14px; }
         .feed-name { color: var(--text-muted); }
         .feed-price { font-weight: 600; color: #a3aed0; }
+        
         .form-group { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 8px; }
         .form-label { color: var(--accent-gold); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         .form-subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 2px; }
         select { background: #12141c; color: var(--text-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px; font-size: 14px; width: 100%; outline: none; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='white'><path d='M7 10l5 5 5-5z'/></svg>"); background-repeat: no-repeat; background-position: right 10px center; }
+        
+        /* Positions UI Blocks */
+        .pos-table-header { color: var(--accent-gold); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+        .position-card { background: #12141c; border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 6px; text-align: left; }
+        .pos-top { display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; }
+        .pos-side-long { color: var(--accent-emerald); }
+        .pos-side-short { color: var(--accent-red); }
+        .pos-details { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-muted); }
+        .pos-pnl-row { display: flex; justify-content: space-between; font-size: 14px; font-weight: bold; margin-top: 4px; padding-top: 4px; border-top: 1px dashed var(--border-color); }
+        .pnl-profit { color: var(--accent-emerald); }
+        .pnl-loss { color: var(--accent-red); }
+        .empty-text { color: var(--text-muted); font-size: 14px; padding: 15px 0; }
     </style>
 </head>
 <body>
@@ -54,8 +70,7 @@
     <!-- SCREEN 1: LOGIN ENTRY MODULE -->
     <div id="authScreen" class="card">
         <h1 class="auth-title">Laxmi Chit Fund</h1>
-        <h1 class="auth-title"> contact me at 91 9978824884</h1>
-        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 10px;">Enter your member credentials to access your trading platform</p>
+        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 10px;">Enter member credentials to access trading desk</p>
         <input type="text" id="usernameInput" class="input-field" placeholder="Username (e.g., Sejal)">
         <input type="password" id="passwordInput" class="input-field" placeholder="Password">
         <button class="primary-btn" onclick="handleLogin()">Login to Dashboard</button>
@@ -65,7 +80,7 @@
     <div id="dashboardScreen">
         <div class="header">
             <h1 class="app-title">Laxmi Chit Fund Dashboard</h1>
-            <button class="logout-btn" onclick="handleLogout()">Logout / Exit</button>
+            <button class="logout-btn" onclick="handleLogout()">Logout</button>
         </div>
 
         <div class="member-badge">Member: <span id="displayMemberName">Sejal</span></div>
@@ -89,33 +104,46 @@
             </div>
         </div>
 
+        <!-- TRADE CONTROLLER ORDER BOX -->
         <div class="form-group">
-            <div class="form-label">1. Market Asset</div>
-            <div class="form-subtitle">Asset Index Target</div>
+            <div class="form-label">1. Market Asset Target</div>
             <select id="assetSelect">
-                <option value="NIFTY">NSE NIFTY 50</option>
-                <option value="SENSEX" selected>BSE SENSEX</option>
+                <option value="NIFTY" selected>NSE NIFTY 50</option>
+                <option value="SENSEX">BSE SENSEX</option>
             </select>
-        </div>
 
-        <div class="form-group">
-            <div class="form-label">2. Order Direction</div>
-            <div class="form-subtitle">Position Side Direction</div>
+            <div class="form-label" style="margin-top: 5px;">2. Order Direction</div>
             <select id="directionSelect">
                 <option value="LONG">LONG (Bullish)</option>
                 <option value="SHORT">SHORT (Bearish)</option>
             </select>
+
+            <div class="form-label" style="margin-top: 5px;">3. Trading Trade Value</div>
+            <input type="number" id="tradeQuantity" class="input-field" value="50" min="1" placeholder="Quantity/Lots">
+            
+            <button class="primary-btn" style="margin-top: 5px;" onclick="executeOrder()">Execute Simulated Order</button>
+        </div>
+
+        <!-- POSITIONS DISPLAY BOARD TABLE -->
+        <div class="card" style="text-align: left; padding: 15px;">
+            <div class="pos-table-header">Active Open Positions</div>
+            <div id="positionsListContainer" class="empty-text" style="text-align: center;">
+                No open positions active. Form an order layout block above to deploy leverage!
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    let portfolioValue = 1950000.00;
-    let niftyBase = 24210.58;
-    let sensexBase = 79660.59;
+    let basePortfolio = 1950000.00;
+    let currentCash = 1950000.00; 
+    let niftyBase = 24219.37;
+    let sensexBase = 79623.36;
     let priceInterval;
+    
+    // Positions storage array
+    let activePositions = [];
 
-    // Check auth session state on bootup load
     window.addEventListener('DOMContentLoaded', () => {
         const loggedInUser = localStorage.getItem('current_session_user');
         if (loggedInUser) {
@@ -127,19 +155,18 @@
 
     function handleLogin() {
         const userField = document.getElementById('usernameInput').value.trim();
-        
         if (userField.toLowerCase() === 'sejal') {
-            // Stores the authentication profile session inside the client index
             localStorage.setItem('current_session_user', userField);
             showDashboard(userField);
         } else {
-            alert('Invalid member credentials! Please try again.');
+            alert('Invalid member credentials! Please enter Sejal.');
         }
     }
 
     function handleLogout() {
-        // Clears the active authentication key from storage
         localStorage.removeItem('current_session_user');
+        activePositions = [];
+        currentCash = 1950000.00;
         showAuth();
     }
 
@@ -147,19 +174,15 @@
         document.getElementById('authScreen').style.display = 'none';
         document.getElementById('dashboardScreen').style.display = 'flex';
         document.getElementById('displayMemberName').innerText = username;
-        
-        // Start running the live ticker simulation engine loop
+        renderPositions();
         if (!priceInterval) {
-            priceInterval = setInterval(updateSimulatedPrices, 3000);
+            priceInterval = setInterval(updateSimulatedPrices, 2000);
         }
     }
 
     function showAuth() {
         document.getElementById('dashboardScreen').style.display = 'none';
         document.getElementById('authScreen').style.display = 'flex';
-        document.getElementById('usernameInput').value = '';
-        document.getElementById('passwordInput').value = '';
-        
         if (priceInterval) {
             clearInterval(priceInterval);
             priceInterval = null;
@@ -170,9 +193,88 @@
         return "&#8377;" + num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
+    // ORDER EXECUTION LOGIC ENGINE
+    function executeOrder() {
+        const asset = document.getElementById('assetSelect').value;
+        const direction = document.getElementById('directionSelect').value;
+        const qty = parseInt(document.getElementById('tradeQuantity').value) || 0;
+        
+        if (qty <= 0) {
+            alert('Please enter a valid position size load value.');
+            return;
+        }
+
+        const entryPrice = (asset === 'NIFTY') ? niftyBase : sensexBase;
+        
+        const newPosition = {
+            id: Date.now(),
+            asset: asset,
+            direction: direction,
+            qty: qty,
+            entryPrice: entryPrice,
+            currentPrice: entryPrice,
+            pnl: 0.00
+        };
+        
+        activePositions.push(newPosition);
+        renderPositions();
+    }
+
+    function closePosition(id) {
+        activePositions = activePositions.filter(pos => {
+            if (pos.id === id) {
+                currentCash += pos.pnl; // Liquidate asset pnl into permanent cash account
+                return false;
+            }
+            return true;
+        });
+        renderPositions();
+    }
+
+    // ENGINE FOR RENDERING REALTIME POSITIONS
+    function renderPositions() {
+        const container = document.getElementById('positionsListContainer');
+        if (activePositions.length === 0) {
+            container.className = "empty-text";
+            container.style.textAlignment = "center";
+            container.innerHTML = "No open positions active. Form an order layout block above to deploy leverage!";
+            return;
+        }
+
+        container.className = "";
+        container.innerHTML = "";
+
+        activePositions.forEach(pos => {
+            const card = document.createElement('div');
+            card.className = 'position-card';
+            
+            const isLong = pos.direction === 'LONG';
+            const sideClass = isLong ? 'pos-side-long' : 'pos-side-short';
+            const pnlClass = pos.pnl >= 0 ? 'pnl-profit' : 'pnl-loss';
+            const pnlSign = pos.pnl >= 0 ? '+' : '';
+
+            card.innerHTML = `
+                <div class="pos-top">
+                    <span>${pos.asset === 'NIFTY' ? 'NSE NIFTY 50' : 'BSE SENSEX'}</span>
+                    <span class="${sideClass}">${pos.direction} (${pos.qty} Lots)</span>
+                </div>
+                <div class="pos-details">
+                    <span>Entry: ${pos.entryPrice.toFixed(2)}</span>
+                    <span>LTP: ${pos.currentPrice.toFixed(2)}</span>
+                </div>
+                <div class="pos-pnl-row">
+                    <span>Unrealized P&L:</span>
+                    <span class="${pnlClass}">${pnlSign}${pos.pnl.toFixed(2)}</span>
+                </div>
+                <button class="logout-btn" style="margin-top:5px; padding: 4px;" onclick="closePosition(${pos.id})">Square Off / Close</button>
+            `;
+            container.appendChild(card);
+        });
+    }
+
     function updateSimulatedPrices() {
-        let niftyChange = (Math.random() - 0.5) * 15;
-        let sensexChange = (Math.random() - 0.5) * 45;
+        let niftyChange = (Math.random() - 0.5) * 20;
+        let sensexChange = (Math.random() - 0.5) * 60;
         
         niftyBase += niftyChange;
         sensexBase += sensexChange;
@@ -180,8 +282,30 @@
         document.getElementById('niftyPrice').innerText = niftyBase.toFixed(2) + " pts";
         document.getElementById('sensexPrice').innerText = sensexBase.toFixed(2) + " pts";
         
-        portfolioValue += niftyChange * 12.5; 
-        document.getElementById('portfolioDisplay').innerHTML = formatCurrency(portfolioValue);
+        // Loop through and compute open trade floating P&L variations
+        let totalUnrealizedPnL = 0;
+        
+        activePositions.forEach(pos => {
+            if (pos.asset === 'NIFTY') {
+                pos.currentPrice = niftyBase;
+                let priceDiff = pos.currentPrice - pos.entryPrice;
+                pos.pnl = (pos.direction === 'LONG' ? priceDiff : -priceDiff) * pos.qty * 25; // 25x multiplier weight lot scale
+            } else {
+                pos.currentPrice = sensexBase;
+                let priceDiff = pos.currentPrice - pos.entryPrice;
+                pos.pnl = (pos.direction === 'LONG' ? priceDiff : -priceDiff) * pos.qty * 15; // 15x multiplier weight lot scale
+            }
+            totalUnrealizedPnL += pos.pnl;
+        });
+
+        // Dynamic overall evaluation
+        let totalNetWorth = currentCash + totalUnrealizedPnL;
+        document.getElementById('portfolioDisplay').innerHTML = formatCurrency(totalNetWorth);
+        
+        // Refresh positions grid visualization mapping layout states
+        if (activePositions.length > 0) {
+            renderPositions();
+        }
     }
 
     // Progressive Web App Installer Script Handler
@@ -205,14 +329,13 @@
         }
     });
 
-    // Register Service Worker
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Service Worker running safely.', reg.scope))
-                .catch(err => console.error('Service worker initialization failure:', err));
+                .then(reg => console.log('Service Worker Running Safely.'))
+                .catch(err => console.error(err));
         });
     }
 </script>
 </body>
-    </html>
+                    </html>
