@@ -18,10 +18,20 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { background-color: var(--bg-primary); color: var(--text-main); padding: 15px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
         .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 15px; }
-        .header { text-align: center; margin-bottom: 5px; }
-        .exit-btn { background: #21262d; color: var(--text-main); border: 1px solid var(--border-color); padding: 6px 16px; border-radius: 4px; font-size: 14px; cursor: pointer; margin-bottom: 8px; }
-        .app-title { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
-        .member-badge { text-align: center; color: var(--text-muted); font-size: 14px; }
+        
+        /* Auth Screen Styling */
+        #authScreen { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; width: 100%; max-width: 400px; }
+        .auth-title { text-align: center; color: var(--accent-gold); font-size: 26px; font-weight: 800; letter-spacing: 1px; }
+        .input-field { background: #12141c; color: var(--text-main); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px; font-size: 15px; width: 100%; outline: none; }
+        .input-field:focus { border-color: var(--accent-gold); }
+        .primary-btn { background: var(--accent-gold); color: #000; border: none; padding: 14px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; width: 100%; }
+        
+        /* Dashboard Screen Styling */
+        #dashboardScreen { display: none; flex-direction: column; gap: 15px; width: 100%; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .logout-btn { background: #21262d; color: #ff4d4d; border: 1px solid #ff4d4d; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
+        .app-title { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+        .member-badge { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: -5px; }
         .member-badge span { color: var(--text-main); font-weight: 600; }
         .install-btn { background: var(--accent-gold); color: #000; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 15px; cursor: pointer; display: none; text-align: center; }
         .card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
@@ -34,66 +44,129 @@
         .form-group { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 8px; }
         .form-label { color: var(--accent-gold); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         .form-subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 2px; }
-        select { background: #12141c; color: var(--text-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px; font-size: 14px; width: 100%; outline: none; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://w3.org' width='24' height='24' fill='white'><path d='M7 10l5 5 5-5z'/></svg>"); background-repeat: no-repeat; background-position: right 10px center; }
+        select { background: #12141c; color: var(--text-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px; font-size: 14px; width: 100%; outline: none; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='white'><path d='M7 10l5 5 5-5z'/></svg>"); background-repeat: no-repeat; background-position: right 10px center; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div style="text-align: center;">
-        <button class="exit-btn" onclick="window.close()">Exit</button>
-        <h1 class="app-title">Laxmi Chit Fund Dashboard</h1>
+
+    <!-- SCREEN 1: LOGIN ENTRY MODULE -->
+    <div id="authScreen" class="card">
+        <h1 class="auth-title">Laxmi Chit Fund</h1>
+        <h1 class="auth-title"> contact me at 91 9978824884</h1>
+        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 10px;">Enter your member credentials to access your trading platform</p>
+        <input type="text" id="usernameInput" class="input-field" placeholder="Username (e.g., Sejal)">
+        <input type="password" id="passwordInput" class="input-field" placeholder="Password">
+        <button class="primary-btn" onclick="handleLogin()">Login to Dashboard</button>
     </div>
 
-    <div class="member-badge">Member: <span>Sejal</span></div>
-
-    <!-- Restored Safe HTML Entity Elements -->
-    <button id="installBtn" class="install-btn">&#128242; Install Laxmi Chit Fund App</button>
-
-    <div class="card">
-        <div class="card-title">Total Portfolio Worth</div>
-        <div class="balance-value" id="portfolioDisplay">&#8377;19,50,000.00</div>
-    </div>
-
-    <div class="card" style="text-align: left; padding: 15px;">
-        <div class="feed-section-title">Dalal Street Live Feeds</div>
-        <div class="feed-row">
-            <span class="feed-name">NSE NIFTY 50:</span>
-            <span class="feed-price" id="niftyPrice">24,210.58 pts</span>
+    <!-- SCREEN 2: CORE DASHBOARD SYSTEM -->
+    <div id="dashboardScreen">
+        <div class="header">
+            <h1 class="app-title">Laxmi Chit Fund Dashboard</h1>
+            <button class="logout-btn" onclick="handleLogout()">Logout / Exit</button>
         </div>
-        <div class="feed-row">
-            <span class="feed-name">BSE SENSEX:</span>
-            <span class="feed-price" id="sensexPrice">79,660.59 pts</span>
+
+        <div class="member-badge">Member: <span id="displayMemberName">Sejal</span></div>
+
+        <button id="installBtn" class="install-btn">&#128242; Install Laxmi Chit Fund App</button>
+
+        <div class="card">
+            <div class="card-title">Total Portfolio Worth</div>
+            <div class="balance-value" id="portfolioDisplay">&#8377;19,50,000.00</div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="form-label">1. Market Asset</div>
-        <div class="form-subtitle">Asset Index Target</div>
-        <select id="assetSelect">
-            <option value="NIFTY">NSE NIFTY 50</option>
-            <option value="SENSEX" selected>BSE SENSEX</option>
-        </select>
-    </div>
+        <div class="card" style="text-align: left; padding: 15px;">
+            <div class="feed-section-title">Dalal Street Live Feeds</div>
+            <div class="feed-row">
+                <span class="feed-name">NSE NIFTY 50:</span>
+                <span class="feed-price" id="niftyPrice">24,210.58 pts</span>
+            </div>
+            <div class="feed-row">
+                <span class="feed-name">BSE SENSEX:</span>
+                <span class="feed-price" id="sensexPrice">79,660.59 pts</span>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <div class="form-label">2. Order Direction</div>
-        <div class="form-subtitle">Position Side Direction</div>
-        <select id="directionSelect">
-            <option value="LONG">LONG (Bullish)</option>
-            <option value="SHORT">SHORT (Bearish)</option>
-        </select>
+        <div class="form-group">
+            <div class="form-label">1. Market Asset</div>
+            <div class="form-subtitle">Asset Index Target</div>
+            <select id="assetSelect">
+                <option value="NIFTY">NSE NIFTY 50</option>
+                <option value="SENSEX" selected>BSE SENSEX</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">2. Order Direction</div>
+            <div class="form-subtitle">Position Side Direction</div>
+            <select id="directionSelect">
+                <option value="LONG">LONG (Bullish)</option>
+                <option value="SHORT">SHORT (Bearish)</option>
+            </select>
+        </div>
     </div>
 </div>
 
 <script>
-    // Safe standard dynamic simulation script engine
     let portfolioValue = 1950000.00;
     let niftyBase = 24210.58;
     let sensexBase = 79660.59;
+    let priceInterval;
+
+    // Check auth session state on bootup load
+    window.addEventListener('DOMContentLoaded', () => {
+        const loggedInUser = localStorage.getItem('current_session_user');
+        if (loggedInUser) {
+            showDashboard(loggedInUser);
+        } else {
+            showAuth();
+        }
+    });
+
+    function handleLogin() {
+        const userField = document.getElementById('usernameInput').value.trim();
+        
+        if (userField.toLowerCase() === 'sejal') {
+            // Stores the authentication profile session inside the client index
+            localStorage.setItem('current_session_user', userField);
+            showDashboard(userField);
+        } else {
+            alert('Invalid member credentials! Please try again.');
+        }
+    }
+
+    function handleLogout() {
+        // Clears the active authentication key from storage
+        localStorage.removeItem('current_session_user');
+        showAuth();
+    }
+
+    function showDashboard(username) {
+        document.getElementById('authScreen').style.display = 'none';
+        document.getElementById('dashboardScreen').style.display = 'flex';
+        document.getElementById('displayMemberName').innerText = username;
+        
+        // Start running the live ticker simulation engine loop
+        if (!priceInterval) {
+            priceInterval = setInterval(updateSimulatedPrices, 3000);
+        }
+    }
+
+    function showAuth() {
+        document.getElementById('dashboardScreen').style.display = 'none';
+        document.getElementById('authScreen').style.display = 'flex';
+        document.getElementById('usernameInput').value = '';
+        document.getElementById('passwordInput').value = '';
+        
+        if (priceInterval) {
+            clearInterval(priceInterval);
+            priceInterval = null;
+        }
+    }
 
     function formatCurrency(num) {
-        // Formats properly to standard Indian visual comma spacing using safe Rupee character rendering code
         return "&#8377;" + num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
@@ -107,12 +180,9 @@
         document.getElementById('niftyPrice').innerText = niftyBase.toFixed(2) + " pts";
         document.getElementById('sensexPrice').innerText = sensexBase.toFixed(2) + " pts";
         
-        // Simulates balance adjustments slightly based on market movements
         portfolioValue += niftyChange * 12.5; 
         document.getElementById('portfolioDisplay').innerHTML = formatCurrency(portfolioValue);
     }
-
-    setInterval(updateSimulatedPrices, 3000);
 
     // Progressive Web App Installer Script Handler
     let deferredPrompt;
@@ -145,4 +215,4 @@
     }
 </script>
 </body>
-</html>
+    </html>
